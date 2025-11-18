@@ -1,34 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Header from './components/layout/Header.jsx'
+import Footer from './components/layout/Footer.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app-shell">
+      <Header />
+      <main className="app-content">
+        <section className="hero">
+          <div className="hero-body">
+            <p className="eyebrow">React Todo app</p>
+            <h1>Starter</h1>
+            <p className="lede">
+              header, nav, and footer are wired
+              up.
+            </p>
+            <div className="hero-actions">
+              <button className="btn primary">Add a task</button>
+              <button className="btn ghost">View today</button>
+            </div>
+          </div>
+          <div className="hero-card">
+            <div className="hero-card__header">
+              <p className="label">Sample Tasks</p>
+              <span className="pill success">3 due</span>
+            </div>
+            <ul className="tasks-preview">
+              <li>
+                <span className="dot high" />
+                Finish routing setup
+                <span className="meta">Due today</span>
+              </li>
+              <li>
+                <span className="dot medium" />
+                Design TaskItem component
+                <span className="meta">Tomorrow</span>
+              </li>
+              <li>
+                <span className="dot low" />
+                Draft project report
+                <span className="meta">Friday</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="grid">
+          <div className="card">
+            <p className="label">Phase 1</p>
+            <h2>Layout & styling</h2>
+            <p className="muted">
+              Header, navigation, footer, and base styles ready
+            </p>
+          </div>
+          <div className="card">
+            <p className="label">Next</p>
+            <h2>Contexts & pages</h2>
+            <p className="muted">
+              Add `TasksContext`, `SettingsContext`
+            </p>
+          </div>
+          <div className="card">
+            <p className="label">Deployment</p>
+            <h2>Vercel friendly</h2>
+            <p className="muted">
+              Vite
+            </p>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
   )
 }
 
