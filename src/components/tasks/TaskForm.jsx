@@ -1,29 +1,49 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-function TaskForm({ onSubmit }) {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [dueDate, setDueDate] = useState('')
-  const [priority, setPriority] = useState('medium')
-  const [category, setCategory] = useState('general')
+const defaultState = {
+  title: '',
+  description: '',
+  dueDate: '',
+  priority: 'medium',
+  category: 'general',
+}
+
+function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel }) {
+  const [formState, setFormState] = useState(defaultState)
+
+  useEffect(() => {
+    if (initialValues) {
+      setFormState({
+        title: initialValues.title ?? '',
+        description: initialValues.description ?? '',
+        dueDate: initialValues.dueDate ?? '',
+        priority: initialValues.priority ?? 'medium',
+        category: initialValues.category ?? 'general',
+      })
+    } else {
+      setFormState(defaultState)
+    }
+  }, [initialValues])
+
+  const updateField = (field, value) => {
+    setFormState((prev) => ({ ...prev, [field]: value }))
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (!title.trim()) return
+    if (!formState.title.trim()) return
 
     onSubmit?.({
-      title: title.trim(),
-      description: description.trim(),
-      dueDate,
-      priority,
-      category,
+      title: formState.title.trim(),
+      description: formState.description.trim(),
+      dueDate: formState.dueDate,
+      priority: formState.priority,
+      category: formState.category,
     })
 
-    setTitle('')
-    setDescription('')
-    setDueDate('')
-    setPriority('medium')
-    setCategory('general')
+    if (!initialValues) {
+      setFormState(defaultState)
+    }
   }
 
   return (
@@ -33,8 +53,8 @@ function TaskForm({ onSubmit }) {
           <span>Title</span>
           <input
             type="text"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            value={formState.title}
+            onChange={(event) => updateField('title', event.target.value)}
             placeholder="Add a task title"
             required
           />
@@ -43,8 +63,8 @@ function TaskForm({ onSubmit }) {
         <label>
           <span>Description</span>
           <textarea
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
+            value={formState.description}
+            onChange={(event) => updateField('description', event.target.value)}
             placeholder="Optional details"
           />
         </label>
@@ -53,14 +73,14 @@ function TaskForm({ onSubmit }) {
           <span>Due date</span>
           <input
             type="date"
-            value={dueDate}
-            onChange={(event) => setDueDate(event.target.value)}
+            value={formState.dueDate}
+            onChange={(event) => updateField('dueDate', event.target.value)}
           />
         </label>
 
         <label>
           <span>Priority</span>
-          <select value={priority} onChange={(event) => setPriority(event.target.value)}>
+          <select value={formState.priority} onChange={(event) => updateField('priority', event.target.value)}>
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
@@ -71,16 +91,21 @@ function TaskForm({ onSubmit }) {
           <span>Category</span>
           <input
             type="text"
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
+            value={formState.category}
+            onChange={(event) => updateField('category', event.target.value)}
             placeholder="General"
           />
         </label>
       </div>
 
       <div className="task-form__actions">
+        {onCancel && initialValues && (
+          <button className="btn ghost" type="button" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
         <button className="btn primary" type="submit">
-          Add Task
+          {submitLabel}
         </button>
       </div>
     </form>
