@@ -23,7 +23,6 @@ export function SettingsProvider({ children }) {
     setSettings((prev) => ({ ...prev, ...updates }))
   }
 
-  // Save automatically when settings change
   useEffect(() => {
     try {
       localStorage.setItem('settings', JSON.stringify(settings))
