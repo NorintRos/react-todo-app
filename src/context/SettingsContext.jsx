@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from 'react'
+import { createContext, useContext, useState, useMemo, useEffect } from 'react'
 
 const SettingsContext = createContext(undefined)
 
@@ -9,7 +9,14 @@ const defaultSettings = {
 }
 
 export function SettingsProvider({ children }) {
-  const [settings, setSettings] = useState(defaultSettings)
+  const [settings, setSettings] = useState(() => {
+    try {
+      const stored = localStorage.getItem('settings')
+      return stored ? JSON.parse(stored) : defaultSettings
+    } catch {
+      return defaultSettings
+    }
+  })
 
   const updateSettings = (updates) => {
     setSettings((prev) => ({ ...prev, ...updates }))

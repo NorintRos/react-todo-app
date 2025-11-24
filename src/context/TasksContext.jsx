@@ -1,9 +1,16 @@
-import { createContext, useContext, useState, useMemo } from 'react'
+import { createContext, useContext, useState, useMemo, useEffect } from 'react'
 
 const TasksContext = createContext(undefined)
 
 export function TasksProvider({ children }) {
-  const [tasks, setTasks] = useState([])
+  const [tasks, setTasks] = useState(() => {
+    try {
+      const stored = localStorage.getItem('tasks')
+      return stored ? JSON.parse(stored) : []
+    } catch {
+      return []
+    }
+  })
 
   const addTask = (newTask) => {
     setTasks((prev) => [...prev, { ...newTask, id: crypto.randomUUID(), completed: false }])
@@ -24,6 +31,14 @@ export function TasksProvider({ children }) {
       )
     )
   }
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('tasks', JSON.stringify(tasks))
+    } catch {
+      // ignore persistence errors
+    }
+  }, [tasks])
 
   const value = useMemo(
     () => ({ tasks, addTask, updateTask, deleteTask, toggleTaskCompletion }),
