@@ -22,6 +22,14 @@ export function SettingsProvider({ children }) {
     setSettings((prev) => ({ ...prev, ...updates }))
   }
 
+  useEffect(() => {
+    try {
+      localStorage.setItem('settings', JSON.stringify(settings))
+    } catch {
+      // ignore persistence errors
+    }
+  }, [settings])
+
   const value = useMemo(() => ({ settings, updateSettings }), [settings])
 
   return <SettingsContext.Provider value={value}>{children}</SettingsContext.Provider>
