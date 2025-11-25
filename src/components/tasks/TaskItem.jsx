@@ -1,3 +1,5 @@
+import Button from '../ui/Button.jsx'
+
 function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
   if (!task) return null
 
@@ -42,15 +44,15 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
       </dl>
 
       <div className="task-item__actions">
-        <button className="btn ghost" type="button" onClick={handleToggle}>
+        <Button variant="ghost" type="button" onClick={handleToggle}>
           {task.completed ? 'Uncomplete' : 'Complete'}
-        </button>
-        <button className="btn" type="button" onClick={handleEdit}>
+        </Button>
+        <Button type="button" onClick={handleEdit}>
           Edit
-        </button>
-        <button className="btn danger" type="button" onClick={handleDelete}>
+        </Button>
+        <Button variant="danger" type="button" onClick={handleDelete}>
           Delete
-        </button>
+        </Button>
       </div>
     </article>
   )
