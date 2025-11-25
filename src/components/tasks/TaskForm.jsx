@@ -8,21 +8,19 @@ const defaultState = {
   category: 'general',
 }
 
+const buildInitialState = (initialValues) => ({
+  title: initialValues?.title ?? defaultState.title,
+  description: initialValues?.description ?? defaultState.description,
+  dueDate: initialValues?.dueDate ?? defaultState.dueDate,
+  priority: initialValues?.priority ?? defaultState.priority,
+  category: initialValues?.category ?? defaultState.category,
+})
+
 function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel }) {
-  const [formState, setFormState] = useState(defaultState)
+  const [formState, setFormState] = useState(() => buildInitialState(initialValues))
 
   useEffect(() => {
-    if (initialValues) {
-      setFormState({
-        title: initialValues.title ?? '',
-        description: initialValues.description ?? '',
-        dueDate: initialValues.dueDate ?? '',
-        priority: initialValues.priority ?? 'medium',
-        category: initialValues.category ?? 'general',
-      })
-    } else {
-      setFormState(defaultState)
-    }
+    setFormState(buildInitialState(initialValues))
   }, [initialValues])
 
   const updateField = (field, value) => {
@@ -42,7 +40,7 @@ function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel 
     })
 
     if (!initialValues) {
-      setFormState(defaultState)
+      setFormState(buildInitialState())
     }
   }
 

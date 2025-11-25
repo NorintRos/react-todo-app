@@ -33,6 +33,7 @@ export function TasksProvider({ children }) {
   return <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTasks() {
   const context = useContext(TasksContext)
   if (context === undefined) {
