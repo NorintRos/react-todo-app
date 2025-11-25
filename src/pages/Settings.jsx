@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSettings } from '../context/SettingsContext.jsx'
+import Button from '../components/ui/Button.jsx'
 
 function SettingsPage() {
   const { settings, updateSettings } = useSettings()
@@ -51,9 +52,9 @@ function SettingsPage() {
           </select>
         </label>
 
-        <button className="btn primary" type="submit">
+        <Button variant="primary" type="submit">
           Save settings
-        </button>
+        </Button>
       </form>
     </section>
   )

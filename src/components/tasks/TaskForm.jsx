@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import Button from '../ui/Button.jsx'
 
 const defaultState = {
   title: '',
@@ -98,13 +99,13 @@ function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel 
 
       <div className="task-form__actions">
         {onCancel && initialValues && (
-          <button className="btn ghost" type="button" onClick={onCancel}>
+          <Button variant="ghost" type="button" onClick={onCancel}>
             Cancel
-          </button>
+          </Button>
         )}
-        <button className="btn primary" type="submit">
+        <Button variant="primary" type="submit">
           {submitLabel}
-        </button>
+        </Button>
       </div>
     </form>
   )
