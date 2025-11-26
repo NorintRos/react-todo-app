@@ -3,6 +3,8 @@ import Button from '../ui/Button.jsx'
 function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
   if (!task) return null
 
+  const hasEdit = typeof onEdit === 'function'
+
   const handleToggle = () => {
     onToggleComplete?.(task.id)
   }
@@ -47,9 +49,11 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
         <Button variant="ghost" type="button" onClick={handleToggle}>
           {task.completed ? 'Uncomplete' : 'Complete'}
         </Button>
-        <Button type="button" onClick={handleEdit}>
-          Edit
-        </Button>
+        {hasEdit && (
+          <Button type="button" onClick={handleEdit}>
+            Edit
+          </Button>
+        )}
         <Button variant="danger" type="button" onClick={handleDelete}>
           Delete
         </Button>

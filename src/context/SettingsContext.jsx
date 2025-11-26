@@ -13,7 +13,7 @@ export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(() => {
     try {
       const stored = localStorage.getItem('settings')
-      return stored ? JSON.parse(stored) : defaultSettings
+      return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings
     } catch {
       console.warn("Failed to parse settings from localStorage.")
       return defaultSettings

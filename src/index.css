@@ -345,6 +345,17 @@ img {
   gap: 0.6rem;
 }
 
+.task-item.is-complete {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  opacity: 0.92;
+}
+
+.task-item.is-complete h3 {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
 .task-item header {
   display: flex;
   align-items: center;
