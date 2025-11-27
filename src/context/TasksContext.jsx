@@ -75,15 +75,15 @@ const toggleTaskCompletion = useCallback(
 );
 
   const value = useMemo(
-    () => ({
-      tasks,
-      addTask,
-      updateTask,
-      deleteTask,
-      toggleTaskCompletion,
-    }),
-    [tasks]
-  );
+  () => ({
+    tasks,
+    addTask,
+    updateTask,
+    deleteTask,
+    toggleTaskCompletion,
+  }),
+  [tasks, addTask, updateTask, deleteTask, toggleTaskCompletion]
+);
 
   return (
     <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
