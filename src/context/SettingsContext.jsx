@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useMemo, useEffect } from 'react'
+import { useCallback } from 'react'
 
 const SettingsContext = createContext()
 
@@ -19,9 +20,10 @@ export function SettingsProvider({ children }) {
     }
   })
 
-  const updateSettings = (updates) => {
-    setSettings((prev) => ({ ...prev, ...updates }))
-  }
+  const updateSettings = useCallback(
+  (updates) => setSettings((prev) => ({ ...prev, ...updates })),
+  [setSettings]
+)
 
   useEffect(() => {
     try {
