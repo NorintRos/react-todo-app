@@ -11,7 +11,6 @@ const initialTasks = () => {
   }
 };
 
-// --- Reducer handles all task actions cleanly ---
 function tasksReducer(state, action) {
   switch (action.type) {
     case "ADD":
@@ -41,16 +40,13 @@ function tasksReducer(state, action) {
 export function TasksProvider({ children }) {
   const [tasks, dispatch] = useReducer(tasksReducer, [], initialTasks);
 
-  // Persist automatically
   useEffect(() => {
     try {
       localStorage.setItem("tasks", JSON.stringify(tasks));
     } catch {
-      // ignore
     }
   }, [tasks]);
 
-  // Action wrappers (clean and simple)
   const addTask = (task) => dispatch({ type: "ADD", payload: task });
   const updateTask = (id, payload) =>
     dispatch({ type: "UPDATE", id, payload });
