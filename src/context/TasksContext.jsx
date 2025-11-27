@@ -90,6 +90,7 @@ const toggleTaskCompletion = useCallback(
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTasks() {
   const context = useContext(TasksContext);
   if (!context) {

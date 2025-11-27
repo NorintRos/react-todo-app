@@ -1,23 +1,40 @@
 import { NavLink } from 'react-router-dom'
 
-function NavBar() {
+function NavBar({ isOpen = false, onNavigate }) {
+  const linkClass = ({ isActive }) =>
+    ['nav-link', isActive ? 'nav-link--active' : ''].filter(Boolean).join(' ')
+
+  const handleNav = () => {
+    onNavigate?.()
+  }
+
   return (
-    <nav className="navbar" aria-label="Primary">
+    <nav id="primary-nav" className={`navbar ${isOpen ? 'navbar--open' : ''}`} aria-label="Primary">
       <ul>
         <li>
-          <NavLink className="nav-link" to="/">Dashboard</NavLink>
+          <NavLink className={linkClass} to="/" end onClick={handleNav}>
+            Dashboard
+          </NavLink>
         </li>
         <li>
-          <NavLink className="nav-link" to="/today">Today</NavLink>
+          <NavLink className={linkClass} to="/today" onClick={handleNav}>
+            Today
+          </NavLink>
         </li>
         <li>
-          <NavLink className="nav-link" to="/categories">Categories</NavLink>
+          <NavLink className={linkClass} to="/categories" onClick={handleNav}>
+            Categories
+          </NavLink>
         </li>
         <li>
-          <NavLink className="nav-link" to="/completed">Completed</NavLink>
+          <NavLink className={linkClass} to="/completed" onClick={handleNav}>
+            Completed
+          </NavLink>
         </li>
         <li>
-          <NavLink className="nav-link" to="/settings">Settings</NavLink>
+          <NavLink className={linkClass} to="/settings" onClick={handleNav}>
+            Settings
+          </NavLink>
         </li>
       </ul>
     </nav>
