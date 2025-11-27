@@ -1,15 +1,37 @@
-import { useMemo, useState } from 'react'
+/* eslint react-hooks/set-state-in-effect: 0 */
+import { useEffect, useMemo, useState } from 'react'
 import TaskForm from '../components/tasks/TaskForm.jsx'
 import TaskFilters from '../components/tasks/TaskFilters.jsx'
 import TaskList from '../components/tasks/TaskList.jsx'
 import { useTasks } from '../context/TasksContext.jsx'
+import { useSettings } from '../context/SettingsContext.jsx'
 
 function DashboardPage() {
   const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTasks()
+  const { settings } = useSettings()
   const [priorityFilter, setPriorityFilter] = useState('all')
   const [categoryFilter, setCategoryFilter] = useState('')
-  const [statusFilter, setStatusFilter] = useState('all')
+  const [statusFilter, setStatusFilter] = useState(() =>
+    settings.defaultFilter === 'completed' ? 'completed' : 'all'
+  )
+  const [dueFilter, setDueFilter] = useState(() =>
+    settings.defaultFilter === 'today' ? 'today' : 'all'
+  )
   const [editingTask, setEditingTask] = useState(null)
+
+  // Sync filters when the default filter setting changes.
+  useEffect(() => {
+    if (settings.defaultFilter === 'completed') {
+      setStatusFilter('completed')
+      setDueFilter('all')
+    } else if (settings.defaultFilter === 'today') {
+      setDueFilter('today')
+      setStatusFilter('all')
+    } else {
+      setStatusFilter('all')
+      setDueFilter('all')
+    }
+  }, [settings.defaultFilter])
 
   const handleSubmit = (taskData) => {
     if (editingTask) {
@@ -21,6 +43,8 @@ function DashboardPage() {
   }
 
   const filteredTasks = useMemo(() => {
+    const today = new Date().toISOString().split('T')[0]
+
     return tasks.filter((task) => {
       const matchesPriority =
         priorityFilter === 'all' || (task.priority ?? 'medium') === priorityFilter
@@ -28,10 +52,13 @@ function DashboardPage() {
         !categoryFilter || (task.category ?? '').toLowerCase().includes(categoryFilter.toLowerCase())
       const matchesStatus =
         statusFilter === 'all' || (statusFilter === 'completed' ? task.completed : !task.completed)
+      const matchesDue =
+        dueFilter === 'all' ||
+        (dueFilter === 'today' && Boolean(task.dueDate) && task.dueDate === today)
 
-      return matchesPriority && matchesCategory && matchesStatus
+      return matchesPriority && matchesCategory && matchesStatus && matchesDue
     })
-  }, [tasks, priorityFilter, categoryFilter, statusFilter])
+  }, [tasks, priorityFilter, categoryFilter, statusFilter, dueFilter])
 
   return (
     <section className="dashboard-page">
@@ -56,6 +83,8 @@ function DashboardPage() {
               setCategoryFilter={setCategoryFilter}
               statusFilter={statusFilter}
               setStatusFilter={setStatusFilter}
+              dueFilter={dueFilter}
+              setDueFilter={setDueFilter}
             />
           </header>
 

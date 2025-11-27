@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSettings } from '../context/SettingsContext.jsx'
+import { defaultSettings } from '../context/settingsDefaults.js'
 import Button from '../components/ui/Button.jsx'
 
 function SettingsPage() {
@@ -13,6 +14,10 @@ function SettingsPage() {
   const handleSubmit = (event) => {
     event.preventDefault()
     updateSettings(formValues)
+  }
+
+  const handleReset = () => {
+    setFormValues(defaultSettings)
   }
 
   return (
@@ -52,9 +57,14 @@ function SettingsPage() {
           </select>
         </label>
 
-        <Button variant="primary" type="submit">
-          Save settings
-        </Button>
+        <div className="settings-form__actions">
+          <Button variant="ghost" type="button" onClick={handleReset}>
+            Reset to defaults
+          </Button>
+          <Button variant="primary" type="submit">
+            Save settings
+          </Button>
+        </div>
       </form>
     </section>
   )

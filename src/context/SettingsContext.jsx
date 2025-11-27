@@ -1,13 +1,8 @@
 import { createContext, useContext, useState, useMemo, useEffect } from 'react'
+import { defaultSettings } from './settingsDefaults.js'
 import { useCallback } from 'react'
 
-const SettingsContext = createContext()
-
-const defaultSettings = {
-  theme: 'light',
-  defaultFilter: 'all',
-  username: 'Guest',
-}
+const SettingsContext = createContext(undefined)
 
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState(() => {
@@ -33,10 +28,11 @@ export function SettingsProvider({ children }) {
     }
   }, [settings])
 
-  const value = useMemo(
-  () => ({ settings, updateSettings }),
-  [settings, updateSettings]
-)
+  useEffect(() => {
+    document.documentElement.dataset.theme = settings.theme
+  }, [settings.theme])
+
+  const value = useMemo(() => ({ settings, updateSettings }), [settings])
 
   return (
     <SettingsContext.Provider value={value}>
