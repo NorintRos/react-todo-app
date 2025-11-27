@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useMemo, useEffect } from "react";
+import { useCallback } from "react";
 
 const TasksContext = createContext(undefined);
 
@@ -53,11 +54,25 @@ function tasksReducer(state, action) {
   }
 }
 
-  const addTask = (task) => dispatch({ type: "ADD", payload: task });
-  const updateTask = (id, payload) =>
-    dispatch({ type: "UPDATE", id, payload });
-  const deleteTask = (id) => dispatch({ type: "DELETE", id });
-  const toggleTaskCompletion = (id) => dispatch({ type: "TOGGLE", id });
+  const addTask = useCallback(
+  (task) => dispatch({ type: "ADD", payload: task }),
+  [dispatch]
+);
+
+const updateTask = useCallback(
+  (id, payload) => dispatch({ type: "UPDATE", id, payload }),
+  [dispatch]
+);
+
+const deleteTask = useCallback(
+  (id) => dispatch({ type: "DELETE", id }),
+  [dispatch]
+);
+
+const toggleTaskCompletion = useCallback(
+  (id) => dispatch({ type: "TOGGLE", id }),
+  [dispatch]
+);
 
   const value = useMemo(
     () => ({
