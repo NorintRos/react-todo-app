@@ -1,11 +1,21 @@
+import { useState } from 'react'
 import TaskList from '../components/tasks/TaskList.jsx'
+import TaskForm from '../components/tasks/TaskForm.jsx'
 import { useTasks } from '../context/TasksContext.jsx'
 
 function TodayPage() {
-  const { tasks, toggleTaskCompletion, deleteTask } = useTasks()
+  const { tasks, toggleTaskCompletion, deleteTask, updateTask } = useTasks()
   const today = new Date().toISOString().split('T')[0]
+  const [editingTask, setEditingTask] = useState(null)
 
   const todayTasks = tasks.filter((task) => task.dueDate === today)
+
+  const handleSubmit = (taskData) => {
+    if (editingTask) {
+      updateTask(editingTask.id, taskData)
+      setEditingTask(null)
+    }
+  }
 
   return (
     <section className="today-page">
@@ -14,11 +24,20 @@ function TodayPage() {
         <p>Tasks scheduled for today ({today}).</p>
       </header>
 
+      {editingTask && (
+        <TaskForm
+          onSubmit={handleSubmit}
+          initialValues={editingTask}
+          submitLabel="Save changes"
+          onCancel={() => setEditingTask(null)}
+        />
+      )}
+
       <TaskList
         tasks={todayTasks}
         onToggleComplete={toggleTaskCompletion}
         onDeleteTask={deleteTask}
-        onEditTask={() => {}}
+        onEditTask={setEditingTask}
       />
     </section>
   )
