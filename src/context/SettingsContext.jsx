@@ -34,9 +34,9 @@ export function SettingsProvider({ children }) {
   }, [settings])
 
   const value = useMemo(
-    () => ({ settings, updateSettings }),
-    [settings]
-  )
+  () => ({ settings, updateSettings }),
+  [settings, updateSettings]
+)
 
   return (
     <SettingsContext.Provider value={value}>
