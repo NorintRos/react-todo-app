@@ -1,4 +1,5 @@
 import Button from '../ui/Button.jsx'
+import { describeDueDate } from '../../utils/dateUtils.js'
 
 function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
   if (!task) return null
@@ -17,6 +18,8 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
     onDelete?.(task.id)
   }
 
+  const dueInfo = describeDueDate(task.dueDate)
+
   return (
     <article className={`task-item ${task.completed ? 'is-complete' : ''}`}>
       <header>
@@ -32,7 +35,7 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
         {task.dueDate && (
           <div>
             <dt>Due</dt>
-            <dd>{task.dueDate}</dd>
+            <dd className={`due due--${dueInfo.status}`}>{dueInfo.label}</dd>
           </div>
         )}
         <div>

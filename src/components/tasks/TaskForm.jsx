@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { getTodayISO } from '../../utils/dateUtils.js'
 import Button from '../ui/Button.jsx'
 
 const defaultState = {
@@ -19,6 +20,7 @@ const buildInitialState = (initialValues) => ({
 
 function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel }) {
   const [formState, setFormState] = useState(() => buildInitialState(initialValues))
+  const todayISO = getTodayISO()
 
   useEffect(() => {
     setFormState(buildInitialState(initialValues))
@@ -31,13 +33,17 @@ function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel 
   const handleSubmit = (event) => {
     event.preventDefault()
     if (!formState.title.trim()) return
+    if (formState.dueDate && formState.dueDate < todayISO) {
+      // Block past due dates for clarity
+      return
+    }
 
     onSubmit?.({
       title: formState.title.trim(),
       description: formState.description.trim(),
       dueDate: formState.dueDate,
       priority: formState.priority,
-      category: formState.category,
+      category: formState.category.trim(),
     })
 
     if (!initialValues) {
@@ -74,6 +80,7 @@ function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel 
             type="date"
             value={formState.dueDate}
             onChange={(event) => updateField('dueDate', event.target.value)}
+            min={todayISO}
           />
         </label>
 
