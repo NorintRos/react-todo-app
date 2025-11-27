@@ -1,6 +1,5 @@
-import { createContext, useContext, useState, useMemo, useEffect } from 'react'
+import { createContext, useContext, useState, useMemo, useEffect, useCallback } from 'react'
 import { defaultSettings } from './settingsDefaults.js'
-import { useCallback } from 'react'
 
 const SettingsContext = createContext(undefined)
 
@@ -15,10 +14,9 @@ export function SettingsProvider({ children }) {
     }
   })
 
-  const updateSettings = useCallback(
-  (updates) => setSettings((prev) => ({ ...prev, ...updates })),
-  [setSettings]
-)
+  const updateSettings = useCallback((updates) => {
+    setSettings((prev) => ({ ...prev, ...updates }))
+  }, [])
 
   useEffect(() => {
     try {
@@ -32,7 +30,7 @@ export function SettingsProvider({ children }) {
     document.documentElement.dataset.theme = settings.theme
   }, [settings.theme])
 
-  const value = useMemo(() => ({ settings, updateSettings }), [settings])
+  const value = useMemo(() => ({ settings, updateSettings }), [settings, updateSettings])
 
   return (
     <SettingsContext.Provider value={value}>
