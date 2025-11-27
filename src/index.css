@@ -67,6 +67,12 @@ body::before {
   pointer-events: none;
 }
 
+body[data-theme='dark']::before {
+  background: radial-gradient(circle at 25% 25%, rgba(56, 189, 248, 0.16), transparent 55%),
+    radial-gradient(circle at 70% 18%, rgba(168, 85, 247, 0.12), transparent 55%);
+  filter: blur(55px);
+}
+
 #root {
   min-height: 100vh;
 }
@@ -231,6 +237,10 @@ img {
   border-radius: 999px;
 }
 
+[data-theme='dark'] .nav-toggle__line {
+  background: #e2e8f0;
+}
+
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 1.25rem;
@@ -319,6 +329,10 @@ img {
   pointer-events: none;
 }
 
+[data-theme='dark'] .dashboard-column {
+  background: linear-gradient(145deg, rgba(12, 20, 38, 0.88), rgba(8, 14, 28, 0.98));
+}
+
 .dashboard-column__header {
   display: flex;
   flex-wrap: wrap;
@@ -369,6 +383,17 @@ img {
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+[data-theme='dark'] .task-form input,
+[data-theme='dark'] .task-form textarea,
+[data-theme='dark'] .task-form select,
+[data-theme='dark'] .task-filters input,
+[data-theme='dark'] .task-filters select,
+[data-theme='dark'] .settings-form input,
+[data-theme='dark'] .settings-form select {
+  background: linear-gradient(145deg, rgba(56, 189, 248, 0.08), rgba(12, 20, 38, 0.9));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .task-form textarea {
@@ -428,6 +453,11 @@ img {
   border-color: rgba(16, 185, 129, 0.45);
   background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(59, 130, 246, 0.04));
   opacity: 0.96;
+}
+
+[data-theme='dark'] .task-item.is-complete {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(16, 185, 129, 0.12));
+  border-color: rgba(125, 211, 252, 0.35);
 }
 
 .task-item.is-complete h3 {
@@ -510,6 +540,16 @@ img {
   color: #0c4a6e;
 }
 
+[data-theme='dark'] .status-done {
+  color: #bbf7d0;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(56, 189, 248, 0.12));
+}
+
+[data-theme='dark'] .status-pending {
+  color: #e0f2fe;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(59, 130, 246, 0.14));
+}
+
 .priority-high {
   color: #b91c1c;
   font-weight: 700;
@@ -523,6 +563,18 @@ img {
 .priority-low {
   color: #15803d;
   font-weight: 700;
+}
+
+[data-theme='dark'] .priority-high {
+  color: #fca5a5;
+}
+
+[data-theme='dark'] .priority-medium {
+  color: #fbbf24;
+}
+
+[data-theme='dark'] .priority-low {
+  color: #6ee7b7;
 }
 
 .settings-form {
@@ -561,11 +613,29 @@ img {
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.08);
 }
 
+[data-theme='dark'] .btn {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  border-color: #23304a;
+  color: #e2e8f0;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme='dark'] .btn:hover {
+  border-color: rgba(56, 189, 248, 0.75);
+  box-shadow: 0 14px 30px rgba(56, 189, 248, 0.18);
+}
+
 .btn--primary {
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   color: #fff;
   border: none;
   box-shadow: 0 16px 32px rgba(37, 99, 235, 0.3);
+}
+
+[data-theme='dark'] .btn--primary {
+  box-shadow: 0 18px 32px rgba(56, 189, 248, 0.28);
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  background: linear-gradient(135deg, #38bdf8, #2563eb);
 }
 
 .btn--ghost {
@@ -574,10 +644,27 @@ img {
   color: #0f172a;
 }
 
+[data-theme='dark'] .btn--ghost {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: #23304a;
+  color: #e2e8f0;
+}
+
+[data-theme='dark'] .btn--ghost:hover {
+  background: rgba(56, 189, 248, 0.08);
+}
+
 .btn--danger {
   background: #fee2e2;
   border-color: #fecdd3;
   color: #b91c1c;
+}
+
+[data-theme='dark'] .btn--danger {
+  background: linear-gradient(135deg, rgba(248, 113, 113, 0.26), rgba(248, 113, 113, 0.14));
+  border-color: #7f1d1d;
+  color: #fecdd3;
+  box-shadow: 0 12px 28px rgba(248, 113, 113, 0.18);
 }
 
 .btn--sm {
@@ -635,6 +722,7 @@ img {
 
   .dashboard-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 
@@ -668,6 +756,15 @@ img {
 
   .app-content {
     padding: 1rem 1rem 2.5rem;
+  }
+
+  .dashboard-column {
+    padding: 1rem;
+    border-radius: 16px;
+  }
+
+  .task-item {
+    padding: 0.95rem;
   }
 }
 

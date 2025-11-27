@@ -2,10 +2,11 @@ import { useState } from 'react'
 import TaskList from '../components/tasks/TaskList.jsx'
 import TaskForm from '../components/tasks/TaskForm.jsx'
 import { useTasks } from '../context/TasksContext.jsx'
+import { getTodayISO } from '../utils/dateUtils.js'
 
 function TodayPage() {
   const { tasks, toggleTaskCompletion, deleteTask, updateTask } = useTasks()
-  const today = new Date().toISOString().split('T')[0]
+  const today = getTodayISO()
   const [editingTask, setEditingTask] = useState(null)
 
   const todayTasks = tasks.filter((task) => task.dueDate === today)

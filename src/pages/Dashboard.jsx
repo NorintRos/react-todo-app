@@ -5,6 +5,7 @@ import TaskFilters from '../components/tasks/TaskFilters.jsx'
 import TaskList from '../components/tasks/TaskList.jsx'
 import { useTasks } from '../context/TasksContext.jsx'
 import { useSettings } from '../context/SettingsContext.jsx'
+import { getTodayISO } from '../utils/dateUtils.js'
 
 function DashboardPage() {
   const { tasks, addTask, updateTask, deleteTask, toggleTaskCompletion } = useTasks()
@@ -43,7 +44,7 @@ function DashboardPage() {
   }
 
   const filteredTasks = useMemo(() => {
-    const today = new Date().toISOString().split('T')[0]
+    const today = getTodayISO()
 
     return tasks.filter((task) => {
       const matchesPriority =
