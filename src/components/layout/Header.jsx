@@ -1,11 +1,16 @@
 import { useState } from 'react'
 import NavBar from './NavBar.jsx'
 import Button from '../ui/Button.jsx'
+import { useSettings } from '../../context/SettingsContext.jsx'
 
 function Header() {
   const [navOpen, setNavOpen] = useState(false)
+  const { settings, updateSettings } = useSettings()
   const toggleNav = () => setNavOpen((open) => !open)
   const closeNav = () => setNavOpen(false)
+  const toggleTheme = () => {
+    updateSettings({ theme: settings.theme === 'dark' ? 'light' : 'dark' })
+  }
 
   return (
     <header className="site-header">
@@ -34,6 +39,9 @@ function Header() {
         <NavBar isOpen={navOpen} onNavigate={closeNav} />
 
         <div className="header-actions">
+          <Button variant="ghost" type="button" onClick={toggleTheme} aria-label="Toggle theme">
+            {settings.theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          </Button>
           <Button variant="ghost" type="button">
             Log in
           </Button>

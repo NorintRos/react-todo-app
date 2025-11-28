@@ -10,6 +10,7 @@ function NavBar({ isOpen = false, onNavigate }) {
 
   return (
     <nav id="primary-nav" className={`navbar ${isOpen ? 'navbar--open' : ''}`} aria-label="Primary">
+      <div className="navbar__brand">Taskflow</div>
       <ul>
         <li>
           <NavLink className={linkClass} to="/" end onClick={handleNav}>
