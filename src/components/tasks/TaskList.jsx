@@ -2,7 +2,11 @@ import TaskItem from './TaskItem.jsx'
 
 function TaskList({ tasks = [], onToggleComplete, onEditTask, onDeleteTask }) {
   if (!tasks.length) {
-    return <p className="task-list__empty">No tasks to display.</p>
+    return (
+      <p className="task-list__empty" aria-live="polite" role="status">
+        No tasks to display.
+      </p>
+    )
   }
 
   const sortedTasks = [...tasks].sort((a, b) => {
@@ -16,7 +20,7 @@ function TaskList({ tasks = [], onToggleComplete, onEditTask, onDeleteTask }) {
   })
 
   return (
-    <div className="task-list">
+    <div className="task-list" aria-live="polite">
       {sortedTasks.map((task) => (
         <TaskItem
           key={task.id}

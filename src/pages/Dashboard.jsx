@@ -86,6 +86,18 @@ function DashboardPage() {
               setStatusFilter={setStatusFilter}
               dueFilter={dueFilter}
               setDueFilter={setDueFilter}
+              onClear={() => {
+                setPriorityFilter('all')
+                setCategoryFilter('')
+                setStatusFilter(
+                  settings.defaultFilter === 'completed'
+                    ? 'completed'
+                    : settings.defaultFilter === 'today'
+                    ? 'all'
+                    : 'all'
+                )
+                setDueFilter(settings.defaultFilter === 'today' ? 'today' : 'all')
+              }}
             />
           </header>
 

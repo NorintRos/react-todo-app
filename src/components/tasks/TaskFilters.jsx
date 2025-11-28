@@ -7,6 +7,7 @@ function TaskFilters({
   setStatusFilter,
   dueFilter,
   setDueFilter,
+  onClear,
 }) {
   return (
     <div className="task-filters">
@@ -46,6 +47,10 @@ function TaskFilters({
           <option value="completed">Completed</option>
         </select>
       </label>
+
+      <button type="button" className="task-filters__clear" onClick={onClear}>
+        Clear filters
+      </button>
     </div>
   )
 }
