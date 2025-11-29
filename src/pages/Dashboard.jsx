@@ -106,6 +106,10 @@ function DashboardPage() {
             onToggleComplete={toggleTaskCompletion}
             onEditTask={setEditingTask}
             onDeleteTask={deleteTask}
+            onAddNew={() => {
+              document.getElementById('task-title')?.focus()
+              window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
           />
         </div>
       </div>

@@ -136,9 +136,9 @@ img {
 
 .app-content {
   flex: 1;
-  width: min(1200px, 100%);
+  width: min(1400px, 100%);
   margin: 0 auto;
-  padding: 1.5rem 1.25rem 3rem;
+  padding: 1.25rem 1rem 3rem;
 }
 
 .top-bar {
@@ -172,7 +172,7 @@ img {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.86));
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme='dark'] .site-header {
@@ -182,7 +182,7 @@ img {
 }
 
 .site-header__inner {
-  width: min(1200px, 100%);
+  width: min(1400px, 100%);
   margin: 0 auto;
   padding: 0.9rem 1.25rem;
   display: flex;
@@ -352,7 +352,7 @@ img {
 }
 
 .nav-toggle__label {
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-size: 0.8rem;
@@ -414,6 +414,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  width: 100%;
 }
 
 .dashboard-page h2,
@@ -437,18 +438,20 @@ img {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 360px 1fr;
-  gap: 1.2rem;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+  align-items: start;
 }
 
 .dashboard-column {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 1.25rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow-soft);
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .dashboard-column::before {
@@ -469,44 +472,72 @@ img {
 
 .dashboard-column__header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-bottom: 1rem;
+  padding: 0.5rem 0.25rem;
+  width: 100%;
 }
 
 .task-filters {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 0.6rem;
-  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+  width: 100%;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+}
+
+.task-filters > label {
+  flex: 1 1 0;
+  min-width: 180px;
+}
+
+.task-filters__clear {
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
+
+@media (max-width: 720px) {
+  .task-filters {
+    gap: 0.6rem;
+  }
+
+  .task-filters > label {
+    flex: 1 1 0;
+    min-width: 140px;
+  }
 }
 
 .task-form {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  gap: 1.1rem;
 }
 
 .task-form__fields {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.85rem;
 }
 
 .task-form label span,
 .task-filters label span,
 .settings-form label span {
   display: block;
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   color: var(--text-muted);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.01em;
 }
 
 .task-filters__clear {
-  align-self: center;
-  justify-self: end;
+  align-self: flex-end;
   border: 1px dashed var(--border);
   background: transparent;
   color: var(--text-muted);
@@ -544,7 +575,7 @@ img {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 0.85rem 0.95rem;
+  padding: 0.75rem 0.85rem;
   background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   transition: border-color 150ms ease, box-shadow 150ms ease;
@@ -614,7 +645,8 @@ img {
 .task-form__actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
 }
 
 .task-list {
@@ -624,11 +656,31 @@ img {
 
 .task-list__empty {
   margin: 0;
-  padding: 1rem;
+  padding: 1.5rem;
   border: 1px dashed var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   color: var(--text-muted);
+  background: var(--bg-subtle);
   text-align: center;
+  display: grid;
+  gap: 0.5rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.task-list__empty-icon {
+  font-size: 1.5rem;
+}
+
+.task-list__empty-title {
+  font-weight: 700;
+  color: #0b1220;
+  margin: 0;
+}
+
+.task-list__empty-copy {
+  margin: 0;
+  color: var(--text-muted);
 }
 
 .task-item {
@@ -961,6 +1013,7 @@ img {
     gap: 0.75rem;
     align-items: flex-start;
     width: 100%;
+    padding-bottom: 2.5rem;
   }
 
   .navbar ul li {

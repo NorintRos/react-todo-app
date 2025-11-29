@@ -57,6 +57,7 @@ function TaskForm({ onSubmit, initialValues, submitLabel = 'Add Task', onCancel 
         <label>
           <span>Title</span>
           <input
+            id="task-title"
             type="text"
             value={formState.title}
             onChange={(event) => updateField('title', event.target.value)}

@@ -1,11 +1,21 @@
 import TaskItem from './TaskItem.jsx'
+import Button from '../ui/Button.jsx'
 
-function TaskList({ tasks = [], onToggleComplete, onEditTask, onDeleteTask }) {
+function TaskList({ tasks = [], onToggleComplete, onEditTask, onDeleteTask, onAddNew }) {
   if (!tasks.length) {
     return (
-      <p className="task-list__empty" aria-live="polite" role="status">
-        No tasks to display.
-      </p>
+      <div className="task-list__empty" aria-live="polite" role="status">
+        <span className="task-list__empty-icon" aria-hidden="true">
+          ☁
+        </span>
+        <div>
+          <p className="task-list__empty-title">No tasks to display</p>
+          <p className="task-list__empty-copy">Start fresh with a new task to keep your day organized.</p>
+        </div>
+        <Button variant="primary" type="button" onClick={onAddNew}>
+          Add a task
+        </Button>
+      </div>
     )
   }
 
