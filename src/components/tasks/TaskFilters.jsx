@@ -5,6 +5,8 @@ function TaskFilters({
   setCategoryFilter,
   statusFilter,
   setStatusFilter,
+  dueFilter,
+  setDueFilter,
 }) {
   return (
     <div className="task-filters">
@@ -26,6 +28,14 @@ function TaskFilters({
           value={categoryFilter}
           onChange={(event) => setCategoryFilter(event.target.value)}
         />
+      </label>
+
+      <label>
+        <span>Due</span>
+        <select value={dueFilter} onChange={(event) => setDueFilter(event.target.value)}>
+          <option value="all">All</option>
+          <option value="today">Today</option>
+        </select>
       </label>
 
       <label>

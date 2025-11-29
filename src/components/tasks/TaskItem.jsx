@@ -1,7 +1,10 @@
 import Button from '../ui/Button.jsx'
+import { describeDueDate } from '../../utils/dateUtils.js'
 
 function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
   if (!task) return null
+
+  const hasEdit = typeof onEdit === 'function'
 
   const handleToggle = () => {
     onToggleComplete?.(task.id)
@@ -14,6 +17,8 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
   const handleDelete = () => {
     onDelete?.(task.id)
   }
+
+  const dueInfo = describeDueDate(task.dueDate)
 
   return (
     <article className={`task-item ${task.completed ? 'is-complete' : ''}`}>
@@ -30,7 +35,7 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
         {task.dueDate && (
           <div>
             <dt>Due</dt>
-            <dd>{task.dueDate}</dd>
+            <dd className={`due due--${dueInfo.status}`}>{dueInfo.label}</dd>
           </div>
         )}
         <div>
@@ -47,9 +52,11 @@ function TaskItem({ task, onToggleComplete, onEdit, onDelete }) {
         <Button variant="ghost" type="button" onClick={handleToggle}>
           {task.completed ? 'Uncomplete' : 'Complete'}
         </Button>
-        <Button type="button" onClick={handleEdit}>
-          Edit
-        </Button>
+        {hasEdit && (
+          <Button type="button" onClick={handleEdit}>
+            Edit
+          </Button>
+        )}
         <Button variant="danger" type="button" onClick={handleDelete}>
           Delete
         </Button>

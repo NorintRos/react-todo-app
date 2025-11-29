@@ -11,6 +11,8 @@ function Button({
   children,
   ...props
 }) {
+  const ComponentTag = Component
+
   const classes = [
     'btn',
     `btn--${variant}`,
@@ -22,9 +24,9 @@ function Button({
     .join(' ')
 
   return (
-    <Component className={classes} {...props}>
+    <ComponentTag className={classes} {...props}>
       {children}
-    </Component>
+    </ComponentTag>
   )
 }
 
