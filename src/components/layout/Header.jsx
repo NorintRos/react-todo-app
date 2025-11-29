@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import NavBar from './NavBar.jsx'
 import Button from '../ui/Button.jsx'
 import { useSettings } from '../../context/SettingsContext.jsx'
@@ -61,10 +62,10 @@ function Header() {
             <Button variant="ghost" type="button" onClick={toggleTheme} aria-label="Toggle theme">
               {settings.theme === 'dark' ? <SunIcon /> : <MoonIcon />}
             </Button>
-            <Button variant="ghost" type="button">
+            <Button as={NavLink} to="/login" variant="ghost" type="button">
               Log in
             </Button>
-            <Button variant="primary" type="button">
+            <Button as={NavLink} to="/get-started" variant="primary" type="button">
               Get started
             </Button>
           </div>

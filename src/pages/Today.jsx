@@ -3,9 +3,11 @@ import TaskList from '../components/tasks/TaskList.jsx'
 import TaskForm from '../components/tasks/TaskForm.jsx'
 import { useTasks } from '../context/TasksContext.jsx'
 import { getTodayISO } from '../utils/dateUtils.js'
+import { useNavigate } from 'react-router-dom'
 
 function TodayPage() {
   const { tasks, toggleTaskCompletion, deleteTask, updateTask } = useTasks()
+  const navigate = useNavigate()
   const today = getTodayISO()
   const [editingTask, setEditingTask] = useState(null)
 
@@ -39,6 +41,7 @@ function TodayPage() {
         onToggleComplete={toggleTaskCompletion}
         onDeleteTask={deleteTask}
         onEditTask={setEditingTask}
+        onAddNew={() => navigate('/')}
       />
     </section>
   )

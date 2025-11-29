@@ -47,10 +47,10 @@ function NavBar({ isOpen = false, onNavigate }) {
       </ul>
 
       <div className="navbar__mobile-actions">
-        <Button variant="ghost" type="button" onClick={handleNav}>
+        <Button as={NavLink} to="/login" variant="ghost" type="button" onClick={handleNav}>
           Log in
         </Button>
-        <Button variant="primary" type="button" onClick={handleNav}>
+        <Button as={NavLink} to="/get-started" variant="primary" type="button" onClick={handleNav}>
           Get started
         </Button>
       </div>
