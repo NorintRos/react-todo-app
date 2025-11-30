@@ -41,7 +41,7 @@ function TodayPage() {
         onToggleComplete={toggleTaskCompletion}
         onDeleteTask={deleteTask}
         onEditTask={setEditingTask}
-        onAddNew={() => navigate('/')}
+        onAddNew={() => navigate('/', { state: { startNew: true } })}
       />
     </section>
   )
