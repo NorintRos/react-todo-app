@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import Button from '../ui/Button.jsx'
 
 function NavBar({ isOpen = false, onNavigate }) {
   const linkClass = ({ isActive }) =>
@@ -10,6 +11,18 @@ function NavBar({ isOpen = false, onNavigate }) {
 
   return (
     <nav id="primary-nav" className={`navbar ${isOpen ? 'navbar--open' : ''}`} aria-label="Primary">
+      <div className="navbar__rail">
+        <div className="navbar__brand">
+          <span className="brand-mark brand-mark--mini" aria-hidden="true">
+            ✓
+          </span>
+          <span>Taskflow</span>
+        </div>
+        <button type="button" className="navbar__close" onClick={handleNav} aria-label="Close menu">
+          Close
+        </button>
+      </div>
+
       <ul>
         <li>
           <NavLink className={linkClass} to="/" end onClick={handleNav}>
@@ -37,6 +50,15 @@ function NavBar({ isOpen = false, onNavigate }) {
           </NavLink>
         </li>
       </ul>
+
+      <div className="navbar__mobile-actions">
+        <Button as={NavLink} to="/login" variant="ghost" type="button" onClick={handleNav}>
+          Log in
+        </Button>
+        <Button as={NavLink} to="/get-started" variant="primary" type="button" onClick={handleNav}>
+          Get started
+        </Button>
+      </div>
     </nav>
   )
 }

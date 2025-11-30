@@ -2,9 +2,11 @@ import { useMemo, useState } from 'react'
 import TaskList from '../components/tasks/TaskList.jsx'
 import TaskForm from '../components/tasks/TaskForm.jsx'
 import { useTasks } from '../context/TasksContext.jsx'
+import { useNavigate } from 'react-router-dom'
 
 function CategoriesPage() {
   const { tasks, toggleTaskCompletion, deleteTask, updateTask } = useTasks()
+  const navigate = useNavigate()
   const [selectedCategory, setSelectedCategory] = useState('')
   const [editingTask, setEditingTask] = useState(null)
 
@@ -62,6 +64,7 @@ function CategoriesPage() {
         onToggleComplete={toggleTaskCompletion}
         onDeleteTask={deleteTask}
         onEditTask={setEditingTask}
+        onAddNew={() => navigate('/', { state: { startNew: true } })}
       />
     </section>
   )
